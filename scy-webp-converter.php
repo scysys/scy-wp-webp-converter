@@ -43,16 +43,20 @@ class WPWebPConverter
     public function convert_to_webp($metadata, $attachment_id)
     {
 
-        $dir = wp_upload_dir();
+        // Use the directory of the original file because WordPress stores size filenames without subfolders
+        // This fixes wrong paths like uploads/filename-300x200.png by pointing to uploads/YYYY/MM/filename-300x200.png
+        $original     = get_attached_file($attachment_id);
+        $original_dir = $original ? dirname($original) : '';
+
         if (! empty($metadata['sizes'])) {
             foreach ($metadata['sizes'] as $s) {
                 if (! empty($s['file'])) {
-                    $path = $dir['basedir'] . '/' . $s['file'];
+                    $path = $original_dir ? trailingslashit($original_dir) . $s['file'] : $s['file'];
                     $this->generate_webp_file($path);
                 }
             }
         }
-        $original = get_attached_file($attachment_id);
+
         if ($original) {
             $this->generate_webp_file($original);
         }
