@@ -1,4 +1,5 @@
 <?php
+
 /*
 Plugin Name: Scy: WebP Converter
 Plugin URI: https://github.com/scysys/scy-wp-webp-converter
@@ -10,7 +11,7 @@ License: GPLv3 or later
 Text Domain: scy-webp-converter
 */
 
-if (!defined('ABSPATH')) {
+if (! defined('ABSPATH')) {
     exit;
 }
 
@@ -43,9 +44,9 @@ class WPWebPConverter
     {
 
         $dir = wp_upload_dir();
-        if (!empty($metadata['sizes'])) {
+        if (! empty($metadata['sizes'])) {
             foreach ($metadata['sizes'] as $s) {
-                if (!empty($s['file'])) {
+                if (! empty($s['file'])) {
                     $path = $dir['basedir'] . '/' . $s['file'];
                     $this->generate_webp_file($path);
                 }
@@ -55,6 +56,7 @@ class WPWebPConverter
         if ($original) {
             $this->generate_webp_file($original);
         }
+
         return $metadata;
     }
 
@@ -63,7 +65,7 @@ class WPWebPConverter
 
         $info = pathinfo($path);
         $ext  = strtolower($info['extension']);
-        if (!in_array($ext, ['jpg', 'jpeg', 'png'])) {
+        if (! in_array($ext, ['jpg', 'jpeg', 'png'])) {
             return;
         }
         $webp = $path . '.webp';
@@ -107,7 +109,7 @@ class WPWebPConverter
             function ($matches) {
                 $webp_url  = $matches[1] . '.webp';
                 $webp_file = str_replace(wp_upload_dir()['baseurl'], wp_upload_dir()['basedir'], $webp_url);
-                if (!file_exists($webp_file)) {
+                if (! file_exists($webp_file)) {
                     $original = str_replace(wp_upload_dir()['baseurl'], wp_upload_dir()['basedir'], $matches[1]);
                     $this->generate_webp_file($original);
                 }
@@ -123,7 +125,7 @@ class WPWebPConverter
     public function filter_attachment_image_src($image, $attachment_id, $size, $icon)
     {
 
-        if (!empty($image[0]) && !preg_match('/\.webp$/i', $image[0])) {
+        if (! empty($image[0]) && ! preg_match('/\.webp$/i', $image[0])) {
             $webp_url  = $image[0] . '.webp';
             $webp_file = str_replace(wp_upload_dir()['baseurl'], wp_upload_dir()['basedir'], $webp_url);
             if (file_exists($webp_file)) {
@@ -147,7 +149,7 @@ class WPWebPConverter
             return;
         }
         $path = get_attached_file($attachment_id);
-        if (!$path) {
+        if (! $path) {
             return;
         }
         $info = pathinfo($path);
@@ -156,7 +158,7 @@ class WPWebPConverter
             echo '<span style="color: green;">Already WebP</span>';
             return;
         }
-        if (!in_array($ext, ['jpg', 'jpeg', 'png'])) {
+        if (! in_array($ext, ['jpg', 'jpeg', 'png'])) {
             echo '<span style="color: orange;">Not supported</span>';
             return;
         }
@@ -195,7 +197,7 @@ class WPWebPConverter
     public function generate_webp_now()
     {
 
-        if (!current_user_can('manage_options')) {
+        if (! current_user_can('manage_options')) {
             wp_die('You do not have permission.');
         }
         check_admin_referer('generate_webp_now');
@@ -320,6 +322,7 @@ class WPWebPConverter
             })(jQuery);
         </script>
         <?php
+
     }
 
     public function register_settings()
@@ -425,7 +428,7 @@ class WPWebPConverter
                 wp_unschedule_event($time, 'webp_conversion_cron');
             }
         }
-        if (!wp_next_scheduled('webp_conversion_cron')) {
+        if (! wp_next_scheduled('webp_conversion_cron')) {
             wp_schedule_event(time(), $freq, 'webp_conversion_cron');
         }
     }
@@ -447,7 +450,7 @@ class WPWebPConverter
 
         $list  = [];
         $files = @scandir($dir);
-        if (!$files) {
+        if (! $files) {
             return $list;
         }
         foreach ($files as $f) {
@@ -468,7 +471,7 @@ class WPWebPConverter
     {
 
         check_admin_referer('run_webp_converter_cron_nonce');
-        if (!current_user_can('manage_options')) {
+        if (! current_user_can('manage_options')) {
             wp_die('You do not have permission.');
         }
         do_action('webp_conversion_cron');
@@ -480,7 +483,7 @@ class WPWebPConverter
     {
 
         check_ajax_referer('scy_webp_nonce', 'security');
-        if (!current_user_can('manage_options')) {
+        if (! current_user_can('manage_options')) {
             echo 'No permission';
             exit;
         }
@@ -494,11 +497,11 @@ class WPWebPConverter
     {
 
         check_ajax_referer('scy_webp_nonce', 'security');
-        if (!current_user_can('manage_options')) {
+        if (! current_user_can('manage_options')) {
             wp_send_json_error('No permission');
         }
         $list = get_transient('webp_regen_list');
-        if (!$list || !is_array($list) || count($list) === 0) {
+        if (! $list || ! is_array($list) || count($list) === 0) {
             wp_send_json(['done' => true, 'msg' => "No images left to process."]);
         }
         $img       = array_shift($list);
