@@ -4,7 +4,7 @@
 Plugin Name: Scy: WebP Converter
 Plugin URI: https://github.com/scysys/scy-wp-webp-converter
 Description: Converts uploads to WebP and serves them dynamically.
-Version: 1.0.1
+Version: 1.0.2
 Author: scysys
 Author URI: https://github.com/scysys/
 License: GPLv3 or later
@@ -269,7 +269,7 @@ class WPWebPConverter
         echo '<button id="webp-start-regen" class="button button-primary">Regenerate All</button>';
         echo '<div style="width:100%;height:400px;background:#000;color:#0f0;font-family:monospace;overflow:auto;margin-top:10px;padding:5px;white-space:pre-wrap;display:none" id="webp-terminal"></div>';
         echo '<hr>';
-        echo '<p style="margin-top:2em;">Thank you for using WebP Converter. If this plugin has helped you, <a href="https://buy.stripe.com/4gwcOm4l86dyeuk8ww" target="_blank" rel="noopener">please consider donating</a>.</p>';
+        echo '<p style="margin-top:2em;">Thank you for using WebP Converter. If this plugin has helped you, <a href="https://buy.stripe.com/6oU8wR5NebIy9Rb4sB3F600" target="_blank" rel="noopener">please consider donating</a>.</p>';
         echo '</div>';
         ?>
         <script>

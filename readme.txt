@@ -1,11 +1,11 @@
 === Scy: WebP Converter ===
 Contributors: scysys  
-Donate link: https://buy.stripe.com/4gwcOm4l86dyeuk8ww  
+Donate link: https://buy.stripe.com/6oU8wR5NebIy9Rb4sB3F600
 Tags: webp, image optimization, performance, media, images  
 Requires at least: 5.0  
 Tested up to: 6.7  
 Requires PHP: 7.4  
-Stable tag: 1.0.0  
+Stable tag: 1.0.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
