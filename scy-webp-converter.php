@@ -1,7 +1,7 @@
 <?php
 
 /*
-Plugin Name: Scy: WebP Converter
+Plugin Name: SCY / WebP Converter
 Plugin URI: https://github.com/scysys/scy-wp-webp-converter
 Description: Converts uploads to WebP and serves them dynamically.
 Version: 1.0.2
